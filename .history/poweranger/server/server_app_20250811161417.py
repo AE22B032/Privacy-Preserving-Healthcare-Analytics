@@ -43,23 +43,6 @@ class SaveableFedAvg(fl.server.strategy.FedAvg):
 
     def aggregate_fit(self, server_round, results, failures):
         aggregated_parameters, aggregated_metrics = super().aggregate_fit(server_round, results, failures)
-        # Save per-client fit metrics
-        try:
-            if results:
-                path = os.path.join(METRICS_DIR, "fit_client_metrics.csv")
-                for client, fit_res in results:
-                    row = {
-                        "round": int(server_round),
-                        "client_id": getattr(client, "cid", str(client)),
-                        "num_examples": int(getattr(fit_res, "num_examples", 0)),
-                    }
-                    metrics = getattr(fit_res, "metrics", None) or {}
-                    for k, v in metrics.items():
-                        if isinstance(v, (int, float)):
-                            row[k] = float(v)
-                    self._append_csv(path, row)
-        except Exception as e:
-            print(f"Warning: failed to save per-client fit metrics for round {server_round}: {e}")
         # Save metrics
         if aggregated_metrics:
             row = {"round": int(server_round), **{k: float(v) for k, v in aggregated_metrics.items()}}
@@ -75,26 +58,6 @@ class SaveableFedAvg(fl.server.strategy.FedAvg):
 
     def aggregate_evaluate(self, server_round, results, failures):
         aggregated_loss, aggregated_metrics = super().aggregate_evaluate(server_round, results, failures)
-        # Save per-client eval metrics
-        try:
-            if results:
-                path = os.path.join(METRICS_DIR, "eval_client_metrics.csv")
-                for client, eval_res in results:
-                    row = {
-                        "round": int(server_round),
-                        "client_id": getattr(client, "cid", str(client)),
-                        "num_examples": int(getattr(eval_res, "num_examples", 0)),
-                    }
-                    loss = getattr(eval_res, "loss", None)
-                    if isinstance(loss, (int, float)):
-                        row["loss"] = float(loss)
-                    metrics = getattr(eval_res, "metrics", None) or {}
-                    for k, v in metrics.items():
-                        if isinstance(v, (int, float)):
-                            row[k] = float(v)
-                    self._append_csv(path, row)
-        except Exception as e:
-            print(f"Warning: failed to save per-client eval metrics for round {server_round}: {e}")
         # Save eval metrics (include loss)
         row = {"round": int(server_round)}
         if aggregated_loss is not None:
