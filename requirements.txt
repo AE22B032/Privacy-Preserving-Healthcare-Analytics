@@ -1,0 +1,51 @@
+# Core Federated Learning Dependencies
+flwr[simulation]==1.12.0
+# TensorFlow 2.16.1 doesn't provide wheels for Python 3.12; use 2.17+ for Python 3.12 compatibility
+tensorflow>=2.17.0,<2.19.0
+torch==2.2.0
+torchvision==0.17.0
+numpy==1.26.4
+pandas==2.2.1
+
+# Web Framework and Real-time Communication
+flask==3.0.2
+flask-socketio==5.3.6
+flask-cors==4.0.0
+eventlet==0.36.1
+
+# Data Visualization and Processing
+matplotlib==3.8.3
+seaborn==0.13.2
+plotly==5.18.0
+pillow==10.2.0
+
+# Machine Learning and Scientific Computing
+scikit-learn==1.4.2
+scipy==1.12.0
+opencv-python==4.9.0.80
+
+# Logging and Configuration
+python-dotenv==1.0.1
+pyyaml==6.0.1
+colorlog==6.8.2
+
+# Development and Testing
+pytest==8.0.2
+pytest-asyncio==0.23.5
+black==24.2.0
+flake8==7.0.0
+
+# Database (for persistent storage)
+# sqlite3 is included with Python standard library, no need to install
+
+# Docker support
+docker==7.0.0
+
+# Healthcare data handling
+pydicom==2.4.4
+nibabel==5.2.1
+
+# Additional utilities
+tqdm==4.66.2
+requests==2.31.0
+python-dateutil==2.8.2

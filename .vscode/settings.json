@@ -1,0 +1,9 @@
+{
+  // Exclude virtual environment from analysis to avoid Pylance warnings in site-packages
+  "python.analysis.extraPaths": [],
+  "python.analysis.exclude": [
+    "venv/**",
+    "**/site-packages/**"
+  ],
+  "python.venvPath": "./venv"
+}
