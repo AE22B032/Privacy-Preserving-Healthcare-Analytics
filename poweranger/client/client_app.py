@@ -28,11 +28,16 @@ class FlowerClient(NumPyClient):
         epochs = int(config.get("local_epochs", self.epochs)) if isinstance(config, dict) else self.epochs
         batch_size = int(config.get("batch_size", self.batch_size)) if isinstance(config, dict) else self.batch_size
         verbose = int(config.get("verbose", self.verbose)) if isinstance(config, dict) else self.verbose
+        
+        # Reduce TF retracing by specifying steps_per_epoch for consistent graph shapes
+        steps_per_epoch = max(1, len(self.x_train) // batch_size)
+        
         self.model.fit(
             self.x_train,
             self.y_train,
             epochs=epochs,
             batch_size=batch_size,
+            steps_per_epoch=steps_per_epoch,
             verbose=verbose,
         )
         return self.model.get_weights(), len(self.x_train), {}
