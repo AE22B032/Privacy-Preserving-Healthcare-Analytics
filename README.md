@@ -1,4 +1,4 @@
-# Federated Health (Poweranger)
+# Federated Health
 
 Privacy-preserving federated learning for medical images using Flower and TensorFlow. Includes a simple web UI, low-memory defaults, and automatic saving of aggregated metrics and global model snapshots per round.
 
@@ -234,7 +234,6 @@ model.set_weights([weights[k] for k in weights.files])
 - Flower: https://flower.ai/
 - TensorFlow: https://www.tensorflow.org/
 - FL in healthcare (survey): https://arxiv.org/abs/1911.06270
-
 ## Troubleshooting
 
 - Ray OOM or processes killed:
@@ -265,5 +264,4 @@ Then extend this script to upload `results/` artifacts as needed.
 Issues and PRs are welcome. Please include environment details and reproduction steps.
 
 ## License
-
 This project is licensed under the MIT License. See the `LICENSE` file for details.
